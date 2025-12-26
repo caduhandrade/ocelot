@@ -13,7 +13,7 @@ builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange
 
 // Configurar JWT
 // Em produção, a chave deve vir de variável de ambiente
-var secretKey = builder.Configuration["Jwt:Key"] ?? "SuperSecretKey12345678901234567890"; 
+var secretKey = builder.Configuration["Jwt:Key"] ?? "SuperSecretKey12345678901234567890";
 var key = Encoding.ASCII.GetBytes(secretKey);
 
 builder.Services.AddAuthentication(options =>
@@ -38,6 +38,9 @@ builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
 
+// Health Check simples
+app.MapGet("/", () => "Api Gateway is running!");
+
 // Endpoints de Autenticação (Auth Server Embutido)
 app.MapPost("/auth/token", (UserLogin user) =>
 {
@@ -58,9 +61,9 @@ app.MapPost("/auth/token", (UserLogin user) =>
         var token = tokenHandler.CreateToken(tokenDescriptor);
         var jwtToken = tokenHandler.WriteToken(token);
         var refreshToken = Guid.NewGuid().ToString();
-        
+
         // TODO: Salvar refreshToken no banco de dados
-        
+
         return Results.Ok(new { Token = jwtToken, RefreshToken = refreshToken });
     }
     return Results.Unauthorized();
@@ -72,7 +75,7 @@ app.MapPost("/auth/refresh-token", (RefreshTokenRequest request) =>
     if (!string.IsNullOrEmpty(request.RefreshToken))
     {
         // Validar se o refresh token existe e é válido no banco
-        
+
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -86,7 +89,7 @@ app.MapPost("/auth/refresh-token", (RefreshTokenRequest request) =>
         var token = tokenHandler.CreateToken(tokenDescriptor);
         var jwtToken = tokenHandler.WriteToken(token);
         var newRefreshToken = Guid.NewGuid().ToString();
-        
+
         return Results.Ok(new { Token = jwtToken, RefreshToken = newRefreshToken });
     }
     return Results.BadRequest("Invalid Refresh Token");

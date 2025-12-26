@@ -4,10 +4,10 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["WebApi1/WebApi1.csproj", "WebApi1/"]
-RUN dotnet restore "WebApi1/WebApi1.csproj"
+COPY ["WebApi1.csproj", "."]
+RUN dotnet restore "./WebApi1.csproj"
 COPY . .
-WORKDIR "/src/WebApi1"
+WORKDIR "/src/."
 RUN dotnet build "WebApi1.csproj" -c Release -o /app/build
 
 FROM build AS publish
