@@ -4,19 +4,29 @@
       "DownstreamPathTemplate": "/auth/token",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 8080 }
+        {
+          "Host": "apigateway",
+          "Port": 8080
+        }
       ],
       "UpstreamPathTemplate": "/auth/token",
-      "UpstreamHttpMethod": ["Post"]
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
     },
     {
       "DownstreamPathTemplate": "/",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 8080 }
+        {
+          "Host": "apigateway",
+          "Port": 8080
+        }
       ],
       "UpstreamPathTemplate": "/",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
     },
     {
       "DownstreamPathTemplate": "/",
