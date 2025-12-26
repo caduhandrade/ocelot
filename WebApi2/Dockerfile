@@ -4,11 +4,11 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-# Se o contexto for a pasta do projeto, o arquivo .csproj deve ser copiado diretamente
-COPY ["WebApi2.csproj", "./"]
-RUN dotnet restore "./WebApi2.csproj"
+
+# Copiar TODO o conteúdo do contexto para dentro da imagem
 COPY . .
-WORKDIR "/src/."
+
+RUN dotnet restore "WebApi2.csproj"
 RUN dotnet build "WebApi2.csproj" -c Release -o /app/build
 
 FROM build AS publish
