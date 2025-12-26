@@ -8,11 +8,11 @@ WORKDIR /src
 # Copiar TODO o conteúdo do contexto para dentro da imagem
 COPY . .
 
-RUN dotnet restore "WebApi2.csproj"
-RUN dotnet build "WebApi2.csproj" -c Release -o /app/build
+RUN dotnet restore "WebApi2/WebApi2.csproj"
+RUN dotnet build "WebApi2/WebApi2.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WebApi2.csproj" -c Release -o /app/publish
+RUN dotnet publish "WebApi2/WebApi2.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

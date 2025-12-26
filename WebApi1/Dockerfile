@@ -13,11 +13,11 @@ COPY . .
 # Vamos tentar restaurar assumindo que estamos na pasta correta (Build Path configurado corretamente)
 # Caso contrário, o COPY . . já trouxe tudo, então podemos procurar o arquivo.
 
-RUN dotnet restore "WebApi1.csproj"
-RUN dotnet build "WebApi1.csproj" -c Release -o /app/build
+RUN dotnet restore "WebApi1/WebApi1.csproj"
+RUN dotnet build "WebApi1/WebApi1.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WebApi1.csproj" -c Release -o /app/publish
+RUN dotnet publish "WebApi1/WebApi1.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

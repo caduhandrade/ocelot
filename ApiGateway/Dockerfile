@@ -21,5 +21,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 # Como o ocelot.json está na raiz do projeto, copiamos ele diretamente
-COPY ocelot.json . 
+COPY ApiGateway/ocelot.json .
 ENTRYPOINT ["dotnet", "ApiGateway.dll"]
