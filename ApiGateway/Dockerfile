@@ -4,7 +4,8 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["ApiGateway.csproj", "."]
+# O Dokploy faz build dentro da pasta do projeto, então copiamos o .csproj da raiz do contexto (.)
+COPY ["ApiGateway.csproj", "./"]
 RUN dotnet restore "./ApiGateway.csproj"
 COPY . .
 WORKDIR "/src/."
@@ -16,6 +17,6 @@ RUN dotnet publish "ApiGateway.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-# Garantir que ocelot.json esteja na raiz do app (copiado do contexto atual)
+# Como o ocelot.json está na raiz do projeto (mesmo nível do Dockerfile), copiamos ele diretamente
 COPY ocelot.json . 
 ENTRYPOINT ["dotnet", "ApiGateway.dll"]
