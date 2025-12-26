@@ -41,6 +41,15 @@ var app = builder.Build();
 
 app.UseRouting();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 // Health Check simples
 app.MapGet("/", () => "Api Gateway is running!");
 
@@ -97,10 +106,6 @@ app.MapPost("/auth/refresh-token", (RefreshTokenRequest request) =>
     }
     return Results.BadRequest("Invalid Refresh Token");
 });
-
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 // Endpoints próprios (MapGet, MapPost) já definidos acima
 

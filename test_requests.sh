@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # URLs
-GATEWAY_URL="https://estudos-ocelot-ocelot-uk8ltf-a1acb9-103-199-184-68.traefik.me"
+GATEWAY_URL="https://ocelot.caduandrade.dev"
 
 echo "=== INICIANDO TESTES ==="
 echo "URL do Gateway: $GATEWAY_URL"
