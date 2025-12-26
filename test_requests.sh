@@ -8,13 +8,13 @@ echo "URL do Gateway: $GATEWAY_URL"
 
 # 0. Teste de Conectividade (Health Check)
 echo -e "\n0. Testando Health Check (/)..."
-curl -v "$GATEWAY_URL/"
+curl -vk "$GATEWAY_URL/"
 echo "----------------------------------------"
 
 # 1. Obter Token
 echo -e "\n1. Obtendo Token..."
 # Usando -v para debug detalhado se falhar
-RESPONSE=$(curl -v -X POST "$GATEWAY_URL/auth/token" \
+RESPONSE=$(curl -vk -X POST "$GATEWAY_URL/auth/token" \
   -H "Content-Type: application/json" \
   -d '{"username": "admin", "password": "admin"}' 2>&1)
 
@@ -54,7 +54,7 @@ echo "----------------------------------------"
 
 # 2. Testar WebApi1 via Gateway
 echo -e "\n2. Chamando WebApi1 via Gateway (/api1)..."
-curl -i -X GET "$GATEWAY_URL/api1" \
+curl -ik -X GET "$GATEWAY_URL/api1" \
   -H "Authorization: Bearer $TOKEN"
 echo -e "\n----------------------------------------"
 

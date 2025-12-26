@@ -36,7 +36,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddOcelot(builder.Configuration);
 
+
 var app = builder.Build();
+
+app.UseRouting();
 
 // Health Check simples
 app.MapGet("/", () => "Api Gateway is running!");
@@ -95,8 +98,11 @@ app.MapPost("/auth/refresh-token", (RefreshTokenRequest request) =>
     return Results.BadRequest("Invalid Refresh Token");
 });
 
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Endpoints próprios (MapGet, MapPost) já definidos acima
 
 await app.UseOcelot();
 
