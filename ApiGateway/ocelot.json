@@ -1,6 +1,24 @@
 {
   "Routes": [
     {
+      "DownstreamPathTemplate": "/auth/token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 8080 }
+      ],
+      "UpstreamPathTemplate": "/auth/token",
+      "UpstreamHttpMethod": ["Post"]
+    },
+    {
+      "DownstreamPathTemplate": "/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 8080 }
+      ],
+      "UpstreamPathTemplate": "/",
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
       "DownstreamPathTemplate": "/",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
