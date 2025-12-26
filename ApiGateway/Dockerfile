@@ -11,11 +11,11 @@ COPY . .
 # Para debug (opcional, mas útil se falhar): listar arquivos copiados
 # RUN ls -laR /src
 
-RUN dotnet restore "ApiGateway.csproj"
-RUN dotnet build "ApiGateway.csproj" -c Release -o /app/build
+RUN dotnet restore "ApiGateway/ApiGateway.csproj"
+RUN dotnet build "ApiGateway/ApiGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ApiGateway.csproj" -c Release -o /app/publish
+RUN dotnet publish "ApiGateway/ApiGateway.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
